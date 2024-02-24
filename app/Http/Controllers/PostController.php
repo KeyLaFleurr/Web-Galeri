@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 
+
 class PostController extends Controller
 {
     /**
@@ -25,7 +26,8 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : Response
+
+     public function create() : Response
     {
         return response()->view('posts.form');
     }
