@@ -37,23 +37,24 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request): RedirectResponse
     {
-        $validated  = $request->validated();
-
+        $validated = $request->validated();
+    
         if ($request->hasFile('featured_image')) {
-            $filePath = Storage::disk('public')->put('images/posts/featured-images', request()->file('featured_image'));
+            $filePath = Storage::disk('public')->put('images/posts/featured-images', $request->file('featured_image'));
             $validated['featured_image'] = $filePath;
         }
-
+    
         $create = Post::create($validated);
-
-        if($create) {
-            session()->flash('notif.success', 'Post created successfully!');
-            return redirect()->route('posts.index');
+    
+        if ($create) {
+            return redirect()->route('posts.index')->with('notif.success', 'Galeri Berhasil DI Upload!');
+        
+    
         }
-
+    
         return abort(500);
     }
-
+    
 
     /**
      * Display the specified resource.
@@ -93,7 +94,7 @@ class PostController extends Controller
         $update = $post->update($validated);
 
         if($update) {
-            session()->flash('notif.success', 'Post updated successfully!');
+            session()->flash('notif.success', 'Berhasil DiUpdate!');
             return redirect()->route('posts.index'); 
         }
 
@@ -113,10 +114,28 @@ class PostController extends Controller
         $delete = $post->delete();
 
         if($delete) {
-            session()->flash('notif.success', 'Post deleted successfully!');
+            session()->flash('notif.success', 'Berhasil Di Hapus!');
             return redirect()->route('posts.index');
         }
 
         return abort(500);
     }
+
+    public function deleteAll()
+{
+    $posts = Post::all();
+    
+    foreach ($posts as $post) {
+        $filePath = $post->featured_image;
+        if (!empty($filePath)) {
+            Storage::disk('public')->delete($filePath);
+        }
+    }
+    
+    Post::truncate();
+
+    return redirect()->route('posts.index')->with('notif.success', 'Berhasil Di Reset!.');
+}
+
+
 }

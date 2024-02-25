@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/galeri/{id}', [PostController::class, 'destroy'])->name('galeri.destroy');
     Route::get('/galeri/edit/{id}', [PostController::class, 'edit'])->name('galeri.edit');
     Route::put('/galeri/update/{id}', [PostController::class, 'update'])->name('galeri.update');
+    Route::post('/posts/deleteAll', [PostController::class, 'deleteAll'])->name('posts.deleteAll');
     Route::get('/clear-notification', function () {
         session()->forget('show_notification');
     });

@@ -10,7 +10,7 @@
             @if(session('show_notification'))
             <div id="notification" class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    {{ __("KAMU BERHASIL LOGIN BUDDY!") }}
                 </div>
             </div>
             @endif
@@ -18,11 +18,10 @@
     </div>
 
     <script>
-        // Hapus status notifikasi dari sesi setelah 1 detik
-        setTimeout(function() {
+
+setTimeout(function() {
             document.getElementById('notification').style.display = 'none';
-            // Menghapus status notifikasi dari sesi
             fetch('/clear-notification');
-        }, 1000); // 1000 milliseconds = 1 detik
+        }, 1000); 
     </script>
 </x-app-layout>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->text('featured_image');
             $table->timestamps();
+            $table->softDeletes(); // Tambahkan kolom soft delete
         });
     }
 
